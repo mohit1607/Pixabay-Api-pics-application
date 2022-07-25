@@ -1,5 +1,5 @@
 import './App.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'; 
 import axios from 'axios';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
@@ -32,17 +32,17 @@ function App() {
     setSearch(event.target.value)
   }
 
-  const Url = `https://pixabay.com/api/?key=17392926-1008cec1ed6e3cf7088aafc7e&page=${Page}&q=${search}`;
+  const Url = `https://pixabay.com/api/?key=${process.env.APIKEY}&page=${Page}&q=${search}`;
 
   const getData = () => {
     setloading(true);
-    axios.get(Url
-      ).then( (res) => {
-        console.log(res.data.hits);
-        sethits(res.data.hits);
-      })
+    fetch(Url)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        sethits(data.hits);
+      });
       setloading(false);
-    
   }
 
   const searchClickfun = () => {
